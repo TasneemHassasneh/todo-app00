@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form';
+import './index.scss'
 
 import { v4 as uuid } from 'uuid';
 
@@ -76,6 +77,7 @@ const Todo = () => {
         </label>
       </form>
 
+      <div className="todo-list">
       {list.map(item => (
         <div key={item.id}>
           <p>{item.text}</p>
@@ -85,6 +87,8 @@ const Todo = () => {
           <hr />
         </div>
       ))}
+      </div>
+      
 
     </>
   );

@@ -1,0 +1,59 @@
+/* Todo.scss */
+
+/* Style the header */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Style the form */
+  form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Style the form labels */
+  label {
+    margin-bottom: 10px;
+  }
+  
+  /* Style the input fields */
+  input[type="text"],
+  input[type="range"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+  }
+  
+  /* Style the submit button */
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* Style the todo items */
+  div {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style the complete toggle */
+  div:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+
+  
