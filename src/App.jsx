@@ -1,18 +1,14 @@
 import React from 'react';
-
-import Todo from './Components/Todo';
-
-import { SettingsProvider } from './SettingsContext';
-
+import Home from './Components/Home/Home';
+import SettingsPage from './SettingsPage';
+import {Routes,  Route} from 'react-router-dom';
 export default class App extends React.Component {
   render() {
     return (
-      <SettingsProvider>
-        <div className="App">
-        <Todo />
-         
-        </div>
-      </SettingsProvider>
+      <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path="/settings" element={<SettingsPage />} />
+    </Routes>
     );
   }
 }
