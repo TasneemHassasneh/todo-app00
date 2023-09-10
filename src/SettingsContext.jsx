@@ -1,4 +1,6 @@
-import  { createContext, useContext, useState } from 'react';
+// SettingsContext.js
+import  { createContext, useState, useContext } from 'react';
+
 
 const SettingsContext = createContext();
 
@@ -8,16 +10,18 @@ export const useSettings = () => {
 
 export const SettingsProvider = ({ children }) => {
   const defaultSettings = {
-    maxItemsPerPage: 3, 
-    hideCompleted: true, 
-    defaultSort: 'difficulty', 
+    displayItems: 3,
+    hideCompleted: true,
+    difficulty: 'default',
   };
 
-  const [settings] = useState(defaultSettings);
+  const [settings, setSettings] = useState(defaultSettings);
 
   return (
-    <SettingsContext.Provider value={settings}>
+    <SettingsContext.Provider value={{ settings, setSettings }}>
       {children}
     </SettingsContext.Provider>
   );
 };
+
+export default SettingsContext;

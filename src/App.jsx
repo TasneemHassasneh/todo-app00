@@ -8,11 +8,11 @@ export default class App extends React.Component {
   render() {
     return (
       <SettingsProvider>
-      <div className="App">
+        <div className="App">
         <Todo />
-      </div>
-    </SettingsProvider>
-     
+         
+        </div>
+      </SettingsProvider>
     );
   }
 }
