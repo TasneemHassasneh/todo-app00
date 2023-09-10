@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form';
-import './index.scss'
+import './index.scss';
 
 import { v4 as uuid } from 'uuid';
 
 const Todo = () => {
-
   const [defaultValues] = useState({
     difficulty: 4,
   });
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
+  const [hideCompleted, setHideCompleted] = useState(true); // Add state to hide completed items
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
   function addItem(item) {
@@ -21,31 +21,32 @@ const Todo = () => {
   }
 
   function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
+    const items = list.filter((item) => item.id !== id);
     setList(items);
   }
 
   function toggleComplete(id) {
-
-    const items = list.map( item => {
-      if ( item.id === id ) {
-        item.complete = ! item.complete;
+    const items = list.map((item) => {
+      if (item.id === id) {
+        item.complete = !item.complete;
       }
       return item;
     });
 
     setList(items);
-
   }
 
   useEffect(() => {
-    let incompleteCount = list.filter(item => !item.complete).length;
+   
+    let filteredList = list;
+    if (hideCompleted) {
+      filteredList = list.filter((item) => !item.complete);
+    }
+    
+    let incompleteCount = filteredList.filter((item) => !item.complete).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
-    // linter will want 'incomplete' added to dependency array unnecessarily. 
-    // disable code used to avoid linter warning 
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [list]);  
+  }, [list, hideCompleted]);
 
   return (
     <>
@@ -54,7 +55,6 @@ const Todo = () => {
       </header>
 
       <form onSubmit={handleSubmit}>
-
         <h2>Add To Do Item</h2>
 
         <label>
@@ -78,18 +78,24 @@ const Todo = () => {
       </form>
 
       <div className="todo-list">
-      {list.map(item => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
-        </div>
-      ))}
+        {list.map((item) => (
+        
+          (hideCompleted || !item.complete) && (
+            <div key={item.id}>
+              <p>{item.text}</p>
+              <p><small>Assigned to: {item.assignee}</small></p>
+              <p><small>Difficulty: {item.difficulty}</small></p>
+              <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+              <hr />
+            </div>
+          )
+        ))}
       </div>
-      
 
+     
+      <button onClick={() => setHideCompleted(!hideCompleted)}>
+        {hideCompleted ? 'Hide Completed' : 'Show Completed'}
+      </button>
     </>
   );
 };
